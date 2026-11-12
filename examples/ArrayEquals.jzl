@@ -1,0 +1,6 @@
+fuzz ArrayEquals {
+  target java.util.Arrays.equals;
+  input left: bytes(max=512);
+  input right: bytes(max=512);
+  property no_throw;
+}

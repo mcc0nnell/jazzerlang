@@ -1,0 +1,5 @@
+fuzz ArrayHash {
+  target java.util.Arrays.hashCode;
+  input data: bytes(max=1024);
+  property no_throw;
+}

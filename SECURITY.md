@@ -1,0 +1,11 @@
+# Security
+
+Parsing a specification does not execute its target. The compiler accepts a bounded declarative grammar, validates names and numerical limits, rejects raw Java syntax, and never evaluates expressions or invokes a shell. This reduces source injection risk; it does not make arbitrary targets safe.
+
+A spec author chooses the Java method to execute. Running a generated test executes that target, class initializers, dependencies, Jazzer instrumentation and native components with the test process's privileges. Even a public static method can delete files, send network requests, terminate the JVM, or hang. Treat unfamiliar specs, target libraries, Maven builds and dependencies as untrusted executable workloads. Review them and use disposable isolated workers with no secrets, restricted filesystem/network access, and external CPU/memory/time limits. Jazzer's five-second fuzz budget cannot stop an individual hung target. Input maxima are per argument, not a total memory or CPU quota.
+
+Use a trusted output directory owned by your worker, without concurrent writers. The CLI rejects traversal components and existing symlinks and uses exclusive file creation. It does not defend against an adversary replacing parent directories between validation and writing. It cannot restrict writes to a particular workspace when the caller explicitly chooses another output root. Target input file paths are caller-controlled and may be symlinks; never give an untrusted caller arbitrary filesystem read access through this CLI.
+
+`no_throw` reports uncaught exceptions. Many APIs intentionally reject arbitrary inputs: such failures can indicate an unsuitable harness, not a vulnerability. Review findings in their application context. Passing a regression run or brief fuzz run does not prove correctness or security. No secrets should be placed in corpus inputs, logs, issue reports or generated source.
+
+This unpublished seed has no designated private reporting channel yet. Do not file sensitive exploit details in public issues. Contact the project owner through an established private channel; maintainers should configure private vulnerability reporting before public launch. Ordinary non-sensitive robustness bugs can be reported with a minimal spec and tool versions once an issue tracker exists.

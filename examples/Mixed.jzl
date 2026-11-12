@@ -1,0 +1,9 @@
+fuzz Mixed {
+  target example.MixedTarget.fingerprint;
+  input data: bytes(max=64);
+  input text: string(max=64);
+  input salt: int;
+  input seed: long;
+  input enabled: boolean;
+  property no_throw;
+}

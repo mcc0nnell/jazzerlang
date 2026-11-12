@@ -1,0 +1,6 @@
+fuzz StringEquals {
+  target java.util.Objects.equals;
+  input left: string(max=256);
+  input right: string(max=256);
+  property no_throw;
+}

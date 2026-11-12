@@ -1,0 +1,13 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.jazzerlang</groupId><artifactId>jazzerlang</artifactId><version>0.1.0-SNAPSHOT</version>
+  <name>JazzerLang</name><description>A small declarative front-end for Jazzer JUnit fuzz tests</description>
+  <licenses><license><name>Apache License, Version 2.0</name><url>https://www.apache.org/licenses/LICENSE-2.0</url></license></licenses>
+  <properties><maven.compiler.release>21</maven.compiler.release><project.build.sourceEncoding>UTF-8</project.build.sourceEncoding></properties>
+  <dependencies><dependency><groupId>org.junit.jupiter</groupId><artifactId>junit-jupiter</artifactId><version>5.11.4</version><scope>test</scope></dependency></dependencies>
+  <build><plugins>
+    <plugin><artifactId>maven-compiler-plugin</artifactId><version>3.14.0</version></plugin>
+    <plugin><artifactId>maven-surefire-plugin</artifactId><version>3.5.3</version></plugin>
+    <plugin><artifactId>maven-jar-plugin</artifactId><version>3.4.2</version><configuration><archive><manifest><mainClass>org.jazzerlang.Main</mainClass></manifest></archive></configuration></plugin>
+  </plugins></build>
+</project>

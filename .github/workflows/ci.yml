@@ -1,0 +1,28 @@
+name: Java 21 verification
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Install verified Apache Maven 4.0.0-rc-7
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p .tools
+          cd .tools
+          base=https://archive.apache.org/dist/maven/maven-4/4.0.0-rc-7/binaries
+          curl --fail --location --silent --show-error "$base/apache-maven-4.0.0-rc-7-bin.tar.gz" -o maven.tar.gz
+          curl --fail --location --silent --show-error "$base/apache-maven-4.0.0-rc-7-bin.tar.gz.sha512" -o maven.sha512
+          printf '%s  maven.tar.gz\n' "$(cat maven.sha512)" | sha512sum -c -
+          tar -xzf maven.tar.gz
+          echo "$PWD/apache-maven-4.0.0-rc-7/bin" >> "$GITHUB_PATH"
+      - run: mvn --version
+      - run: scripts/verify-examples.sh

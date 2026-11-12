@@ -1,0 +1,11 @@
+/target/
+**/target/
+/.tools/
+/.m2/
+/*-reference.tmp
+/maven.tar.gz
+/maven.sha512
+**/.cifuzz-corpus/
+**/crash-*
+
+/*.log
