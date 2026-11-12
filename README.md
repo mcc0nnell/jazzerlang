@@ -38,7 +38,7 @@ scripts/verify-examples.sh
 MVN="$PWD/.tools/apache-maven-4.0.0-rc-7/bin/mvn" scripts/verify-examples.sh
 ```
 
-This script uses a workspace-local `.m2` cache. CI downloads rc7 from Apache's archive and checks its published SHA512. The requested releases.apache.org location returned 404 during initial verification. See `.github/workflows/ci.yml` for reproducible installation commands.
+This script uses a workspace-local `.m2` cache. CI downloads rc7 from Apache's archive and verifies its published SHA512. Pushes to `main` automatically trigger a maintainer-operated GitLab **ci-small** runner, which verifies the exact GitHub push SHA, runs the compiler tests, and compiles and executes the generated `ArrayHashFuzzTest` with Jazzer/JUnit. This private CI job does not run the full coverage-guided fuzzing campaign. The GitHub-hosted Actions workflow is disabled; run `scripts/verify-examples.sh` locally for the full verification suite.
 
 ## Examples and Maven integration
 
